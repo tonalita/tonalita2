@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonalita Cafe - Built for Curious Plates</title>
+    
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. GLOBAL STYLES & VARIABLES --- */
+        :root {
+            --primary-color: #333333; /* Dark Gray for primary accents */
+            --secondary-color: #555555; /* Medium Gray for secondary accents */
+            --accent-color: #F0F0F0; /* Light Gray/Off-White Background */
+            --dark-bg: #1A1A1A; /* Very Dark Gray for footers/dark sections */
+            --text-color: #222222; /* Darker text */
+            --light-text: #FFFFFF; /* White text on dark backgrounds */
+            --card-bg: #FFFFFF; /* White for cards */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--accent-color);
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 4em; letter-spacing: 2px;} /* Not used on landing page anymore */
+        h2 { font-size: 1.8em; font-style: italic; color: var(--light-text); font-weight: 400;}
+        h3 { font-size: 2.5em; text-align: center; margin: 0.5em 0 1em 0; color: var(--secondary-color); }
+        h4 { font-size: 1.6em; margin-bottom: 0.8em; }
+        h5 { font-size: 1.2em; font-weight: 600; color: var(--text-color);}
+        h6 { font-weight: bold; font-size: 1.1em; color: var(--text-color);}
+        
+        /* --- KEYFRAMES --- */
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 10px rgba(255,255,255,0.4); }
+            to { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.6); }
+        }
+
+        /* --- 2. LANDING PAGE STYLES (Initial View) --- */
+        #landing-page {
+            /* Updated background image to an ambient aesthetic placeholder (will look monochrome with theme) */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1600x900/444444/FFFFFF?text=CAFE TONALITA') no-repeat center center/cover;
+            color: var(--light-text);
+            text-align: center;
+            padding: 10vh 1em;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+        }
+
+        .landing-content {
+            padding: 2em;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly darker overlay for content */
+            border-radius: 12px;
+            max-width: 90%;
+            transition: opacity 1s ease;
+        }
+        
+        /* NEW LOGO STYLE - RESTORED TO CIRCULAR */
+        .cafe-logo {
+            width: 200px;
+            height: 200px; /* Set height equal to width for perfect circle */
+            max-width: 100%; /* Ensure it doesn't overflow on smaller screens */
+            border-radius: 50%; /* RE-ADDED for circular shape */
+            object-fit: cover; /* Ensures image fills the circle */
+            margin-bottom: 1em;
+            border: 5px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: pulse 2s infinite alternate;
+        }
+
+        .landing-content p {
+            font-size: 1.1em;
+            margin: 1em 0;
+            color: var(--light-text);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--light-text);
+            padding: 1em 2.5em;
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            margin-top: 2em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #555555; /* Slightly lighter gray on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        /* --- NEW BACK BUTTON STYLE --- */
+        .back-button {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.6em 1.5em;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 2em; 
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            transform: translateY(-1px);
+        }
+        
+        /* --- MODERN CONTACT INFO STYLES --- */
+        #contact-info {
+            margin-top: 3em;
+            display: flex;
+            gap: 1.5em;
+            justify-content: center;
+            max-width: 90%;
+            flex-wrap: wrap; /* Stack on mobile */
+        }
+
+        .contact-card {
+            background-color: var(--card-bg); /* White card */
+            color: var(--text-color);
+            padding: 1em 2em;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            min-width: 280px;
+            transition: transform 0.2s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-card .icon {
+            font-size: 1.8em;
+            margin-right: 0.8em;
+            line-height: 1; /* Align emoji/icon better */
+        }
+
+        .contact-card p, .contact-card a {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1em;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- 3. MENU CONTAINER & TABS --- */
+        #full-menu-container {
+            padding: 1em 5% 3em 5%; /* Adjusted top padding for the new back button */
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: none; /* Hidden by default */
+            opacity: 0; /* For animation */
+            transform: translateY(20px); /* For animation */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            border-bottom: 3px solid var(--primary-color);
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 2em; /* Added margin */
+        }
+
+        .tab-button {
+            flex-grow: 1;
+            padding: 1em;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-color);
+            background: var(--accent-color);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: var(--light-text);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:not(.active):hover {
+            background-color: #E0E0E0; /* Lighter gray on hover */
+        }
+
+        /* Sub Tab Navigation for Drinks */
+        .sub-tab-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5em;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--card-bg);
+            max-width: 500px;
+            margin: 1.5em auto;
+        }
+
+        .sub-tab-button {
+            flex-grow: 1;
+            padding: 0.7em;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--secondary-color);
+            background: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sub-tab-button.active {
+            background: var(--secondary-color);
+            color: var(--light-text);
+            border-color: var(--secondary-color);
+        }
+
+        /* Main Tab Content Visibility */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Drink Sub-Tab Content Visibility */
+        .drink-content {
+            display: none; /* Hide by default */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .drink-content.active {
+            display: block; /* Show when active */
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- 4. MENU ITEM STYLES (WITH IMAGES) --- */
+        .menu-category {
+            margin-bottom: 3em;
+        }
+
+        .menu-item-with-img {
+            display: flex;
+            align-items: flex-start;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 1em;
+            padding: 1em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item-with-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .menu-item-with-img img {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 1.5em;
+            flex-shrink: 0;
+            border: 2px solid var(--accent-color);
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details h5, .item-details h6 {
+            margin: 0;
+            display: inline;
+            vertical-align: middle;
+        }
+
+        .item-details span {
+            font-weight: bold;
+            color: var(--primary-color);
+            float: right;
+            font-size: 1.2em;
+        }
+
+        .item-details p {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 0.5em;
+            clear: both;
+        }
+
+        /* Style for Drink Grid Items (No large image) */
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1em;
+        }
+        
+        .drink-grid > div {
+            background: var(--card-bg);
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: background 0.3s ease;
+        }
+
+        .drink-grid > div:hover {
+            background: var(--accent-color);
+        }
+
+        .drink-grid h6 {
+            color: var(--text-color);
+            font-size: 1em;
+            display: inline;
+        }
+
+        .drink-grid span {
+            float: right;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .drink-grid p {
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .add-on {
+            text-align: center;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 1em;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-top: 1.5em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* --- 5. FOOTER --- */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            text-align: center;
+            padding: 2em 1em;
+            margin-top: 4em;
+        }
+        
+        footer h4 {
+            color: var(--light-text);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        footer p {
+            margin: 0.5em 0;
+            color: var(--light-text);
+            font-size: 0.9em;
+        }
+
+        /* --- MEDIA QUERIES (Responsiveness) --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            h2 { font-size: 1.4em; }
+            h3 { font-size: 2em; }
+            
+            .cafe-logo {
+                width: 150px;
+                height: 150px; /* Adjusted height for mobile */
+            }
+
+            #contact-info {
+                flex-direction: column;
+                gap: 1em;
+            }
+
+            .contact-card {
+                min-width: 100%;
+            }
+
+            .tab-nav, .sub-tab-nav {
+                flex-direction: column;
+            }
+
+            .tab-button, .sub-tab-button {
+                font-size: 1em;
+            }
+
+            .menu-item-with-img {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .menu-item-with-img img {
+                margin: 0 0 1em 0;
+                width: 100%;
+                height: 150px;
+                max-width: 300px;
+            }
+            .item-details span {
+                float: none;
+                display: block;
+                margin-top: 0.5em;
+            }
+            .drink-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+
+<section id="landing-page">
+        <div class="landing-content">
+            
+
+<img src="uploaded:tonalita logo.png-3f1484f4-5f25-4670-af41-c7c4b0f983a7" 
+                 alt="Tonalita Cafe Logo" 
+                 class="cafe-logo"
+                 onerror="this.onerror=null; this.src='https://placehold.co/200x200/333333/FFFFFF?text=Tonalita+Cafe+Logo';">
+            
+            <h2>"Built for Curious Plates"</h2>
+    
+            <button class="cta-button" onclick="showMenu()">Explore Our Menu</button>
+        </div>
+        
+        
+
+<div id="contact-info">
+            <div class="contact-card">
+                <span class="icon" role="img" aria-label="Location Pin">📍</span>
+                <p>12 Evington Road, Leicester, LE2 1HF</p>
+            </div>
+            <div class="contact-card">
+                <span class="icon" role="img" aria-label="Telephone">📞</span>
+                <a href="tel:07438102690">07438102690</a>
+            </div>
+        </div>
+        
+    </section>
+
+
+    
+
+<section id="full-menu-container">
+        
+
+<button class="back-button" onclick="hideMenu()">← Back to Home</button>
+
+        <h3>Menu of Curious Plates</h3>
+
+        
+
+<div class="tab-nav">
+            <button class="tab-button active" onclick="openMenuTab('tab-meals')">Brunch & Meals</button>
+            <button class="tab-button" onclick="openMenuTab('tab-desserts')">Desserts</button>
+            <button class="tab-button" onclick="openMenuTab('tab-drinks')">Drinks</button>
+        </div>
+
+        
+
+<div id="tab-meals" class="tab-content active">
+            
+            <div class="menu-category">
+                <h4>Brunch</h4>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Muffin" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Muffin';" alt="Sunrise Crunch Muffin">
+                    <div class="item-details">
+                        <h5>Sunrise Crunch Muffin</h5><span>£6.95</span>
+                        <p>Toasted English muffin filled with crispy chicken, beef bacon, egg, and caramelised onion — your perfect morning bite.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Breakfast" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Breakfast';" alt="Classic English Breakfast">
+                    <div class="item-details">
+                        <h5>Classic English Breakfast</h5><span>£6.95</span>
+                        <p>Traditional full breakfast served with eggs, toast, sausage, beans.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Granola" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Granola';" alt="Morning Granola Bowl">
+                    <div class="item-details">
+                        <h5>Morning Granola Bowl</h5><span>£6.50</span>
+                        <p>Crunchy granola with yogurt, honey, and seasonal fruits — a refreshing start.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Pancake" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Pancake';" alt="Pancake">
+                    <div class="item-details">
+                        <h5>Pancake (Classic)</h5><span>£5.50</span>
+                        <p>Soft, golden pancakes drizzled with syrup — sweet and comforting.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Wrap" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Wrap';" alt="Beef Bacon & Egg Wrap">
+                    <div class="item-details">
+                        <h5>Beef Bacon & Egg Wrap</h5><span>£5.95</span>
+                        <p>Scrambled egg, smoky beef bacon, caramelised onion, and cheese wrapped to perfection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h4>Burgers</h4>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Beef" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Beef';" alt="Classic Beef Burger">
+                    <div class="item-details">
+                        <h5>Classic Beef Burger</h5><span>£6.95</span>
+                        <p>Juicy Angus beef patty with lettuce, cheese, and special burger sauce.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Inferno" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Inferno';" alt="Sweet Inferno Burger">
+                    <div class="item-details">
+                        <h5>Sweet Inferno (Chicken)</h5><span>£6.95</span>
+                        <p>Crunchy chicken topped with lettuce, coleslaw and a hint of sweet and chili.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Smoky" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Smoky';" alt="Smoky BBQ Beef">
+                    <div class="item-details">
+                        <h5>Smoky BBQ Beef</h5><span>£6.95</span>
+                        <p>Angus beef patty glazed in special BBQ sauce with melted cheese and caramelised onions.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=K.BBQ" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=K.BBQ';" alt="K. BBQ Street Burger">
+                    <div class="item-details">
+                        <h5>K. BBQ Street Burger (Korean)</h5><span>£7.95</span>
+                        <p>Korean-style Angus beef BBQ burger — tangy, saucy, and packed with bold flavour.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Jalapeno" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Jalapeno';" alt="Mexican Jalapeño Crunch">
+                    <div class="item-details">
+                        <h5>Mexican Jalapeño Crunch</h5><span>£7.95</span>
+                        <p>Spicy Angus beef burger with jalapeños, nacho crunch, and special burger sauce.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h4>Wraps, Fries & Sides</h4>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=BBQ" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=BBQ';" alt="Classic BBQ Wrap">
+                    <div class="item-details">
+                        <h5>Classic BBQ Wrap</h5><span>£5.50</span>
+                        <p>Crispy chicken with lettuce, cheese and special BBQ sauce wrapped in tortilla.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Mayo" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Mayo';" alt="Mayo Chicken Wrap">
+                    <div class="item-details">
+                        <h5>Mayo Chicken Wrap</h5><span>£5.50</span>
+                        <p>Crispy chicken with lettuce, cheese and mayo sauce wrapped in tortilla.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Loaded" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Loaded';" alt="Chicken Loaded fries">
+                    <div class="item-details">
+                        <h5>Chicken Loaded Fries</h5><span>£5.95</span>
+                        <p>Golden fries topped with saucy chicken and melted cheese.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Nachos" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Nachos';" alt="Mexican Nacho Fiesta">
+                    <div class="item-details">
+                        <h5>Mexican Nacho Fiesta</h5><span>£6.50</span>
+                        <p>Chicken tenders and fries layered with nachos, and spicy sauce.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Wings" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Wings';" alt="BBQ Wings">
+                    <div class="item-details">
+                        <h5>BBQ Wings (5pcs)</h5><span>£4.95</span>
+                        <p>Tender wings slightly grilled and glazed with smoky BBQ sauce.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Fries" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Fries';" alt="Seasoned Fries">
+                    <div class="item-details">
+                        <h5>Seasoned Fries</h5><span>£4.00</span>
+                        <p>Perfectly seasoned with cajun.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+<div id="tab-desserts" class="tab-content">
+            <div class="menu-category">
+                <h4>Edgptian Lou’a (Highly Recommended)</h4>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Loua+Strawberry" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Loua+Strawberry';" alt="Edgptian Lou’a Strawberry">
+                    <div class="item-details">
+                        <h6>Strawberry</h6><span>£12.95</span>
+                        <p>Delicate layers of crispy kunafa filled with rich cream cheese and fresh strawberries, finished with a luxurious pistachio sauce. (Add Nutella or Biscoff £1)</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Loua+Mango" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Loua+Mango';" alt="Edgptian Lou’a Mango">
+                    <div class="item-details">
+                        <h6>Mango</h6><span>£13.95</span>
+                        <p>A heavenly blend of creamy cheese and ripe mango between layers of golden kunafa, topped with smooth pistachio drizzle. (Add Nutella or Biscoff £1)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h4>Waffles & Crepes</h4>
+                
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Pistachio+Waffle" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Pistachio+Waffle';" alt="Pistachio kunafa sandwich Waffle">
+                    <div class="item-details">
+                        <h6>Pistachio Kunafa Sandwich Waffle</h6><span>£8.95</span>
+                        <p>Crispy waffle topped with crunchy pistachios for a delightful texture and nutty flavor.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Oreo+Waffle" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Oreo+Waffle';" alt="Oreo Crunch Waffle">
+                    <div class="item-details">
+                        <h6>Oreo Crunch Waffle</h6><span>£5.95</span>
+                        <p>Crispy waffle topped with crushed Oreo cookies and chocolate sauce, finished with whipped cream.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Biscoff+Crepe" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Biscoff+Crepe';" alt="Biscoff Nutella Crepe">
+                    <div class="item-details">
+                        <h6>Biscoff Nutella Crepe</h6><span>£5.95</span>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Choco+Berry+Crepe" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Choco+Berry+Crepe';" alt="Choco Berry and banana Crepe">
+                    <div class="item-details">
+                        <h6>Choco Berry and Banana Crepe</h6><span>£6.95</span>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/555555/FFFFFF?text=Dubai+Crepe" onerror="this.onerror=null;this.src='https://placehold.co/120x90/555555/FFFFFF?text=Dubai+Crepe';" alt="Dubai Crepe pistachio Kunafa">
+                    <div class="item-details">
+                        <h6>Dubai Crepe Pistachio Kunafa</h6><span>£7.95</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <h4>Dessert Pancakes (Specialty)</h4>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Biscoff+Pancake" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Biscoff+Pancake';" alt="Biscoff Strawberry-Banana Pancakes">
+                    <div class="item-details">
+                        <h6>Biscoff Strawberry-Banana</h6><span>£6.95</span>
+                        <p>Fluffy golden pancakes layered with Biscoff, banana, and strawberries.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Kunafa+Pancake" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Kunafa+Pancake';" alt="Kunafa crunch sandwich Pancake">
+                    <div class="item-details">
+                        <h6>Kunafa Crunch Sandwich Pancake</h6><span>£8.95</span>
+                        <p>A layer of pistachio kunafa sandwiched between fluffy pancakes.</p>
+                    </div>
+                </div>
+                <div class="menu-item-with-img">
+                    <img src="https://placehold.co/120x90/333333/FFFFFF?text=Pistachio+Nutella" onerror="this.onerror=null;this.src='https://placehold.co/120x90/333333/FFFFFF?text=Pistachio+Nutella';" alt="Pistachio nutella Pancakes">
+                    <div class="item-details">
+                        <h6>Pistachio Nutella Pancakes</h6><span>£5.95</span>
+                        <p>Soft, fluffy pancakes layered with velvety Nutella and rich pistachio cream.</p>
+                    </div>
+                </div>
+                <p class="add-on">Add ice cream £1.50 (2 scoops £2) | Whipped cream £0.70</p>
+            </div>
+        </div>
+
+        
+
+<div id="tab-drinks" class="tab-content">
+            
+
+<div class="sub-tab-nav">
+                <button class="sub-tab-button active" onclick="openDrinkTab('sub-hot-drinks')">Hot Drinks</button>
+                <button class="sub-tab-button" onclick="openDrinkTab('sub-cold-drinks')">Cold & Specialty Drinks</button>
+            </div>
+
+            
+
+<div id="sub-hot-drinks" class="drink-content active">
+                <h4>Specialty Teas</h4>
+                <div class="drink-grid">
+                    <div><h6>Masala Tea</h6><span>£3.00</span><p>Traditional spiced tea brewed to perfection.</p></div>
+                    <div><h6>Karak Tea</h6><span>£3.00</span><p>Rich, creamy tea with strong flavours.</p></div>
+                    <div><h6>Kashmiri Pink Tea</h6><span>£3.00</span><p>Fragrant pink tea with milk.</p></div>
+                    <div><h6>Saffron Tea</h6><span>£3.00</span><p>Warm, aromatic tea infused with saffron.</p></div>
+                    <div><h6>Elaichi Tea</h6><span>£3.00</span><p>Flavorful cardamom tea, pleasant aroma and refreshing taste.</p></div>
+                    <div><h6>House Tea</h6><span>£2.50</span><p>Simple, comforting black tea.</p></div>
+                </div>
+                
+                <h4 style="margin-top: 2em;">Coffee & Hot Chocolate</h4>
+                <div class="drink-grid">
+                    <div><h6>Cappuccino</h6><span>£3.00</span><p>Classic blend of espresso, milk, and foam.</p></div>
+                    <div><h6>Americano</h6><span>£2.50</span><p>Smooth espresso mixed with hot water.</p></div>
+                    <div><h6>Mocha</h6><span>£3.95</span><p>Espresso mixed with chocolate and milk.</p></div>
+                    <div><h6>Hot Chocolate</h6><span>£3.50</span><p>Rich, creamy chocolate indulgence.</p></div>
+                    <div><h6>Espresso Shot</h6><span>£1.50/£2</p><p>Pure, strong coffee essence.</p></div>
+                    <div><h6>Cracking Chocolate Coffee</h6><span>£4.95</span><p>Rich chocolate with a hint of espresso, smooth and warming.</p></div>
+                    <div><h6>The Ultimate Hot Chocolate Coffee</h6><span>£5.95</span><p>Deep, indulgent chocolate, extra creamy, the ultimate treat.</p></div>
+                </div>
+            </div>
+
+            
+
+<div id="sub-cold-drinks" class="drink-content">
+                <h4>Shakes & Milk</h4>
+                <div class="drink-grid">
+                    <div><h6>Cookies & Cream Obsession</h6><span>£5.95</span><p>Decadent cookies fused with rich cream for a heavenly treat.</p></div>
+                    <div><h6>Avocado Bliss</h6><span>£5.25</span><p>A silky, creamy avocado shake that’s pure green indulgence.</p></div>
+                    <div><h6>Strawberry Serenade</h6><span>£5.25</span><p>Luscious strawberries blended into a refreshingly sweet delight.</p></div>
+                    <div><h6>Mango Mirage</h6><span>£5.25</span><p>Sun-kissed mango transformed into a smooth, tropical escape.</p></div>
+                    <div><h6>Boost Milk</h6><span>£3.75</span><p>Malted chocolate-flavored energy drink mix.</p></div>
+                </div>
+                
+                <h4 style="margin-top: 2em;">Specialty Lattes & Matcha</h4>
+                <div class="drink-grid">
+                    <div><h6>Korean Banana Milk Latte</h6><span>£5.95</span><p>Smooth, naturally sweet banana blended with milk and espresso.</p></div>
+                    <div><h6>Spanish Iced Latte</h6><span>£4.95</span><p>Cold, smooth, with caramelized milk and espresso.</p></div>
+                    <div><h6>Ube Latte</h6><span>£4.75</span><p>Subtly sweet purple yam flavor, creamy and unique.</p></div>
+                    <div><h6>Blueberry Matcha</h6><span>£4.55</span><p>Fruity, fresh, lightly sweet. (~120 kcal)</p></div>
+                    <div><h6>White Chocolate Matcha</h6><span>£4.55</span><p>Rich, velvety, indulgent. (~180 kcal)</p></div>
+                    <div><h6>Whipped Honey Latte</h6><span>£4.55</span><p>Creamy latte with a touch of honey sweetness.</p></div>
+                    <div><h6>Chocolate Dalgona Coffee</h6><span>£4.45</span><p>Fluffy whipped chocolate foam over milk, playful and sweet.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+
+<footer>
+        <p>&copy; 2024 Tonalita Cafe. All rights reserved. Prices subject to change.</p>
+    </footer>
+
+    
+    <script>
+        // --- JAVASCRIPT FOR INTERACTIVITY AND ANIMATIONS ---
+
+        /**
+         * 1. Hides the landing page and shows the full menu container.
+         * The scroll-to-top ensures the menu is fully visible after clicking.
+         */
+        function showMenu() {
+            const landingPage = document.getElementById('landing-page');
+            const menuContainer = document.getElementById('full-menu-container');
+            
+            // 1. Start hiding landing page visually
+            landingPage.style.opacity = '0';
+            landingPage.style.transform = 'translateY(-50px)';
+            
+            // 2. After animation, hide it fully and show the menu
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                
+                // Show menu container visually and reset for animation (set CSS styles explicitly)
+                menuContainer.style.display = 'block';
+                menuContainer.style.opacity = '1';
+                menuContainer.style.transform = 'translateY(0)';
+
+                // Trigger the initial content animation for meals
+                openMenuTab('tab-meals');
+                
+                // Scroll to the start of the menu container
+                menuContainer.scrollIntoView();
+            }, 500); // Matches CSS transition duration
+        }
+        
+        /**
+         * 2. Hides the full menu container and shows the landing page.
+         */
+        function hideMenu() {
+            const landingPage = document.getElementById('landing-page');
+            const menuContainer = document.getElementById('full-menu-container');
+            
+            // 1. Start hiding the menu container visually
+            menuContainer.style.opacity = '0';
+            menuContainer.style.transform = 'translateY(50px)';
+            
+            // 2. After animation, hide it fully and show the landing page
+            setTimeout(() => {
+                menuContainer.style.display = 'none';
+                
+                // Show the landing page visually and reset for animation (set CSS styles explicitly)
+                landingPage.style.display = 'flex';
+                landingPage.style.opacity = '1';
+                landingPage.style.transform = 'translateY(0)';
+                
+                // Scroll to the start of the landing page
+                landingPage.scrollIntoView();
+            }, 500); // Matches CSS transition duration
+        }
+
+
+        /**
+         * 3. Handles switching between the three main menu tabs (Meals, Desserts, Drinks).
+         * @param {string} tabId - The ID of the tab content to show (e.g., 'tab-meals').
+         */
+        function openMenuTab(tabId) {
+            const contents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+
+            const buttons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            // Add active class to show the selected content with animation
+            const selectedContent = document.getElementById(tabId);
+            selectedContent.classList.add('active');
+            
+            // Set the active button
+            const activeButton = document.querySelector(`.tab-nav button[onclick*="${tabId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // If switching to the drinks tab, ensure the default sub-tab is open
+            if (tabId === 'tab-drinks') {
+                // This ensures 'Hot Drinks' is the default view when the main 'Drinks' tab is clicked
+                openDrinkTab('sub-hot-drinks');
+            }
+        }
+        
+        /**
+         * 4. Handles switching between the Hot and Cold drink sub-tabs.
+         * @param {string} tabId - The ID of the drink sub-tab content to show.
+         */
+        function openDrinkTab(tabId) {
+            const contents = document.getElementsByClassName('drink-content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+
+            const buttons = document.getElementsByClassName('sub-tab-button');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            const selectedContent = document.getElementById(tabId);
+            selectedContent.classList.add('active');
+            
+            const activeButton = document.querySelector(`.sub-tab-nav button[onclick*="${tabId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // Initialize the first drink tab on load (important for initial state)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if the drinks tab is visible (it won't be initially)
+            // This ensures that if the user somehow navigates directly to the menu, the sub-tabs are correct
+            if (document.getElementById('tab-drinks').classList.contains('active')) {
+                openDrinkTab('sub-hot-drinks');
+            }
+        });
+    </script>
+</body>
+</html>
